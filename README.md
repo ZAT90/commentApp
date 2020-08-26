@@ -1,6 +1,6 @@
 # boilerplateflubloc
 
-A new Flutter project.
+A new Flutter boilerPlate consisting of flutter_bloc, spash screen and sample api call.
 
 ## Getting Started
 
