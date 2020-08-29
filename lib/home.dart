@@ -1,4 +1,3 @@
-import 'package:boilerplateflubloc/api/user.dart';
 import 'package:boilerplateflubloc/bloc/user.dart';
 import 'package:boilerplateflubloc/model/users.dart';
 import 'package:flutter/material.dart';
@@ -6,15 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -25,18 +15,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           title: Text("Homepage"),
         ),
         body: BlocProvider<UserBloc>(
-            lazy: false,      
-            create: (context) => UserBloc()..add(UserEvents.getUsers),
-            child: BlocBuilder<UserBloc,Users>(
-              builder: (context, users) {
-               List<Data> data = users.data;
-               debugPrint('data: $data');
+            lazy: false,
+            create: (context) =>
+                UserBloc()..add(UserEvents(status: EventStatus.getUsers)),
+            child: BlocBuilder<UserBloc, Users>(builder: (context, users) {
+              List<Data> data = users.data;
+              debugPrint('data: $data');
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -44,6 +33,13 @@ class _HomePageState extends State<HomePage> {
                     Text(
                       'You have pushed the button this many times:',
                     ),
+                    RaisedButton(
+                    padding: const EdgeInsets.all(8.0),
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                    onPressed: (){ UserBloc()..add(UserEvents(value: 5,status: EventStatus.updateUsers)); },
+                    child: new Text("Add"),
+                  ),
                   ],
                 ),
               );
