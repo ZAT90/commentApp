@@ -1,5 +1,8 @@
 import 'package:boilerplateflubloc/api/user.dart';
+import 'package:boilerplateflubloc/bloc/user.dart';
+import 'package:boilerplateflubloc/model/users.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -20,41 +23,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    UserApi userApi = new UserApi();
-    userApi.getProducts();
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Homepage"),
-      ),
-      body: Center(
-        
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        appBar: AppBar(
+          title: Text("Homepage"),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: BlocProvider<UserBloc>(
+            lazy: false,      
+            create: (context) => UserBloc()..add(UserEvents.getUsers),
+            child: BlocBuilder<UserBloc,Users>(
+              builder: (context, users) {
+               List<Data> data = users.data;
+               debugPrint('data: $data');
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'You have pushed the button this many times:',
+                    ),
+                  ],
+                ),
+              );
+            }))
+        // Center(
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: <Widget>[
+        //       Text(
+        //         'You have pushed the button this many times:',
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        );
   }
 }

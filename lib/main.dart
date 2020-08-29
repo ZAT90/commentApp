@@ -1,3 +1,4 @@
+import 'package:boilerplateflubloc/bloc/theme/themeCubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './splash.dart';
@@ -13,16 +14,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-     routes: {
-          '/': (context) => SplashPage(),
-          '/home': (context) => HomePage(),
-        },
+    return BlocProvider(
+      create: (_) => ThemeCubit(),
+      child: BlocBuilder<ThemeCubit, ThemeData>(builder: (_, theme) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: theme,
+          routes: {
+            '/': (context) => SplashPage(),
+            '/home': (context) => HomePage(),
+          },
+        );
+      }),
     );
   }
 }
