@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:boilerplateflubloc/storage/preferences.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -12,9 +14,12 @@ class _SplashPageState extends State<SplashPage> {
   StreamSubscription<ConnectivityResult> subscription;
   bool isConnectedToInternet = false;
   bool executeFuture = true;
+
   @override
   initState() {
     super.initState();
+    initalizePreferences().then((value) =>
+        debugPrint('langcode ${PreferenceManager.instance.langCode}'));
     check(); // check initially if the app is connected or not
     subscription =
         Connectivity() //subscribe to listen to the connectivity change
@@ -74,17 +79,17 @@ class _SplashPageState extends State<SplashPage> {
 
   AlertDialog alertInternetorNav(BuildContext context) {
     return AlertDialog(
-            title: Text("Alert"),
-            content: Text("No Internet Connection"),
-            actions: [
-              FlatButton(
-                child: Text("Ok"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
+      title: Text("Alert"),
+      content: Text("No Internet Connection"),
+      actions: [
+        FlatButton(
+          child: Text("Ok"),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        )
+      ],
+    );
   }
 
   @override
@@ -122,3 +127,7 @@ class _SplashPageState extends State<SplashPage> {
     ));
   }
 }
+
+  Future initalizePreferences() async {
+    PreferenceManager.init(await SharedPreferences.getInstance());
+  }
