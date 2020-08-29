@@ -15,7 +15,7 @@ abstract class BaseApi {
           requestBody: kDebugMode,
           logPrint: (s) => log(s, name: "DIO")),
     ]);
-    dio.options.baseUrl = "http://18.191.185.178/api";
+    dio.options.baseUrl = "http://gorest.co.in/public-api";
 
     return dio;
   }
