@@ -1,8 +1,10 @@
 import 'dart:developer';
 
-import 'package:boilerplateflubloc/api/setup/appInterceptor.dart';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+
+import 'appInterceptor.dart';
 
 abstract class BaseApi {
   static Dio _dio = initDio();
@@ -15,7 +17,7 @@ abstract class BaseApi {
           requestBody: kDebugMode,
           logPrint: (s) => log(s, name: "DIO")),
     ]);
-    dio.options.baseUrl = "http://gorest.co.in/public-api";
+    dio.options.baseUrl = "https://jsonplaceholder.typicode.com";
 
     return dio;
   }

@@ -1,9 +1,11 @@
 import 'dart:async';
 
-import 'package:boilerplateflubloc/storage/preferences.dart';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'storage/preferences.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -103,7 +105,7 @@ class _SplashPageState extends State<SplashPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            'Welcome to E-commerce',
+            'Welcome to Comments App',
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
           ),

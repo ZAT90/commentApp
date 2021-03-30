@@ -1,9 +1,12 @@
-import 'package:boilerplateflubloc/bloc/theme/themeCubit.dart';
+
+import 'package:comments/bloc/posts/post_bloc.dart';
+import 'package:comments/comments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './splash.dart';
 import './home.dart';
 import 'bloc/setup/blocObserver.dart';
+import 'bloc/theme/themeCubit.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
@@ -22,8 +25,13 @@ class MyApp extends StatelessWidget {
           theme: theme,
           routes: {
             '/': (context) => SplashPage(),
-            '/home': (context) => HomePage(),
-          },
+            '/home': (context) =>BlocProvider(
+          child: HomePage(),
+          create: (context) =>
+              PostBloc()..add(PostRetreve()),
+            ),
+            '/comments': (context) => CommentPage(),
+            },
         );
       }),
     );

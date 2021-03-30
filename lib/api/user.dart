@@ -1,5 +1,7 @@
-import 'package:boilerplateflubloc/api/setup/baseApi.dart';
+
 import 'package:flutter/cupertino.dart';
+
+import 'setup/baseApi.dart';
 
 class UserApi extends BaseApi{
   @override
