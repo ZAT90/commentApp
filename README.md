@@ -1,4 +1,4 @@
-# boilerplateflubloc
+# commentApp
 
 A new Flutter boilerPlate consisting of flutter_bloc, spash screen and sample api call.
 
