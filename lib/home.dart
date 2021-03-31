@@ -22,9 +22,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    initalizePreferences().then((value) =>
-        debugPrint('langhome ${PreferenceManager.instance.langCode}'));
-    ;
+    
   }
 
   @override
@@ -49,7 +47,9 @@ class _HomePageState extends State<HomePage> {
                     'All Posts',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  Expanded(
+                  allPosts.length == 0?Center(
+                      child: CircularProgressIndicator(
+                          backgroundColor: Colors.blue)):Expanded(
                     // padding: const EdgeInsets.all(8.0),
                     child: ListView.builder(
                         itemCount: allPosts.length,
@@ -72,8 +72,7 @@ class _HomePageState extends State<HomePage> {
                                                         allPosts[index])),
                                               child: CommentPage(),
                                             )));
-                                //  postBloc.add(CommentsRetrieve(
-                                //       postToOpen: allPosts[index])) ;
+                                
                               },
                               title: Text(allPosts[index].title),
                               subtitle: Text(

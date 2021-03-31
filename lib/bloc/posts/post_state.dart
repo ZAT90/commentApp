@@ -29,3 +29,13 @@ class GetPostAndComments extends PostState{
   List<Object> get props => [post,postComments];
 
 }
+
+class GetFilteredComments extends PostState {
+  final String searchString;
+  final List<Comments> comments;
+  const GetFilteredComments({@required this.searchString, @required this.comments});
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [searchString,comments];
+}

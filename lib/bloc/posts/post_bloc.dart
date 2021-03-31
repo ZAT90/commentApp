@@ -27,6 +27,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       yield* mapAllPosts();
     } else if (event is CommentsRetrieve) {
       yield* mapAllComments(event);
+    } else if (event is CommentsFilter) {
+      yield* mapSearchedCompanies(event);
     }
   }
 
@@ -44,8 +46,35 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     List<Comments> postComments =
         (commentRes.data as List).map((e) => Comments.fromJson(e)).toList();
     debugPrint('event postComments: $postComments}');
-    yield GetPostAndComments(post: event.postToOpen, postComments: postComments,);
+    yield GetPostAndComments(
+      post: event.postToOpen,
+      postComments: postComments,
+    );
     yield PostInitial();
+  }
 
+  Stream<PostState> mapSearchedCompanies(CommentsFilter event) async* {
+    debugPrint('search searchString: ${event.searchString}');
+    debugPrint('search comments: ${event.comments}');
+    if (event.searchString.length > 0) {
+      List<Comments> filteredSearch = event.comments
+          .where((element) =>
+              element.body
+                  .toLowerCase()
+                  .contains(event.searchString.toLowerCase()) ||
+              element.name
+                  .toLowerCase()
+                  .contains(event.searchString.toLowerCase()) ||
+              element.email
+                  .toLowerCase()
+                  .contains(event.searchString.toLowerCase()))
+          .toList();
+      yield GetFilteredComments(
+          searchString: event.searchString, comments: filteredSearch);
+    } else {
+      yield GetFilteredComments(
+          searchString: event.searchString, comments: event.comments);
+    }
+    yield PostInitial();
   }
 }

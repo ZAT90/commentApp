@@ -18,3 +18,13 @@ class CommentsRetrieve extends PostEvent {
   // TODO: implement props
   List<Object> get props => throw UnimplementedError();
 }
+
+class CommentsFilter extends PostEvent {
+  final String searchString;
+  final List<Comments> comments;
+  const CommentsFilter({@required this.searchString, @required this.comments});
+
+  @override
+  // TODO: implement props
+  List<Object> get props => throw UnimplementedError();
+}
